@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 const api = {
   key: "a379c315434996dd079b0ede8dd9943a",
   base: "https://api.openweathermap.org/data/2.5/",
 };
 
 function FetchDataComponent() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState(null);
   const [country, setCountry] = useState("");
   const fetchData = (e) => {
     if (e.key === "Enter") {
@@ -16,7 +16,9 @@ function FetchDataComponent() {
           setCountry("");
           console.log(data);
         })
-        .catch((error) => {});
+        .catch((error) => {
+          throw new Error(error.message);
+        });
     }
   };
 
@@ -55,48 +57,58 @@ function FetchDataComponent() {
     console.log(e.target.value);
     e.preventDefault();
   };
-  // const {
-  //   name,
-  //   main: { temp, humidity, pressure },
-  //   weather: [{ main }],
-  // } = data;
+
   return (
     <div className="container">
       <div className="input">
         <input
           type="text"
-          placeholder="Enter country..."
+          placeholder="Enter country or City..."
           value={country}
           onChange={handleChange}
           onKeyPress={fetchData}
         />
       </div>
-      <div className="details">
-        <div className="country">
-          <h3>
-            {data.name}, {data.sys.country}
-          </h3>
+      {data ? (
+        <div className="details">
+          <div className="country">
+            <h3>
+              {data.name}, {data.sys.country}
+            </h3>
+            <h5 style={{ fontStyle: "italic" }}>{getDate(new Date())}</h5>
+          </div>
+          <div className="temp-press-hum">
+            <h2 className="temperature">
+              Temperature:
+              <br />
+              <span>
+                {Math.ceil(data.main.temp)}
+                <sup>0</sup>C
+              </span>
+            </h2>
+            <h2 className="humidity">
+              Humidity:
+              <br />
+              <span>
+                {" "}
+                {Math.ceil(data.main.humidity)}
+                g.kg<sup>-1</sup>
+              </span>
+            </h2>
+            <h2 className="pressure">
+              Atm. Pressure:
+              <br /> <span>{data.main.pressure}atm</span>
+            </h2>
+          </div>
+          <div className="weather">
+            <h3>{data.weather[0].main}</h3>
+          </div>
         </div>
-        <div className="date">{getDate(new Date())}</div>
-        <div className="temp-press-hum">
-          <h2 className="temperature">
-            Temperature:
-            {Math.ceil(data.main.temp)}
-            <sup>0</sup>C
-          </h2>
-          <h2 className="humidity">
-            Humidity:
-            {Math.ceil(data.main.humidity)}
-            g.kg<sup>-1</sup>
-          </h2>
-          <h2 className="pressure">
-            Atmospheric Pressure: {data.main.pressure}atm
-          </h2>
-        </div>
-        <div className="weather">
-          <h3>{data.weather[0].main}</h3>
-        </div>
-      </div>
+      ) : (
+        <h1 style={{ margin: "1rem auto", width: "80%" }}>
+          Search a country or city...
+        </h1>
+      )}
     </div>
   );
 }
