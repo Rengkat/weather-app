@@ -79,7 +79,7 @@ function FetchDataComponent() {
               </h3>
               <h5 className="italic">{getDate(new Date())}</h5>
             </div>
-            <div className="w-1/2 text-center mt-2 mx-auto p-1 border-2 text-2xl  border-white rounded-xl shadow-orange-100 bg-gradient-to-r from-cyan-500 to-blue-500">
+            <div className="w-4/5 md:w-1/2 text-center mt-2 mx-auto p-1 border-2 text-2xl  border-white rounded-xl shadow-orange-100 bg-gradient-to-r from-cyan-500 to-blue-500">
               <h2 className="temperature">
                 Temperature:
                 <br />
