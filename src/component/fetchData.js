@@ -59,56 +59,62 @@ function FetchDataComponent() {
   };
 
   return (
-    <div className="container">
-      <div className="input">
-        <input
-          type="text"
-          placeholder="Enter country or City..."
-          value={country}
-          onChange={handleChange}
-          onKeyPress={fetchData}
-        />
-      </div>
-      {data ? (
-        <div className="details">
-          <div className="country">
-            <h3>
-              {data.name}, {data.sys.country}
-            </h3>
-            <h5 style={{ fontStyle: "italic" }}>{getDate(new Date())}</h5>
-          </div>
-          <div className="temp-press-hum">
-            <h2 className="temperature">
-              Temperature:
-              <br />
-              <span>
-                {Math.ceil(data.main.temp)}
-                <sup>0</sup>C
-              </span>
-            </h2>
-            <h2 className="humidity">
-              Humidity:
-              <br />
-              <span>
-                {" "}
-                {Math.ceil(data.main.humidity)}
-                g.kg<sup>-1</sup>
-              </span>
-            </h2>
-            <h2 className="pressure">
-              Atm. Pressure:
-              <br /> <span>{data.main.pressure}atm</span>
-            </h2>
-          </div>
-          <div className="weather">
-            <h3>{data.weather[0].main}</h3>
-          </div>
+    <div className="flex border-2 border-white max-w-sm md:max-w-md lg:max-w-2xl mx-auto max-h-screen sm:w-sm shrink-0 rounded-lg shadow-md mt-10">
+      <div className="w-4/5 mx-auto">
+        <div className="input-div ">
+          <input
+            type="text"
+            placeholder="Enter country or City..."
+            value={country}
+            onChange={handleChange}
+            onKeyPress={fetchData}
+            className="w-full mt-3 p-2 rounded-md shadow-md"
+          />
         </div>
-      ) : (
-        <h1 style={{ margin: "1rem auto", width: "80%" }}>
-          Search a country or city...
-        </h1>
-      )}
+        {data ? (
+          <div className="details">
+            <div className="center my-10 text  mx-auto text-2xl text-center text-white font-bold">
+              <h3 className="text-4xl">
+                {data.name}, {data.sys.country}
+              </h3>
+              <h5 className="italic">{getDate(new Date())}</h5>
+            </div>
+            <div className="w-1/2 text-center mt-2 mx-auto p-1 border-2 text-2xl  border-white rounded-xl shadow-orange-100 bg-gradient-to-r from-cyan-500 to-blue-500">
+              <h2 className="temperature">
+                Temperature:
+                <br />
+                <span className="text-4xl font-bold">
+                  {Math.ceil(data.main.temp)}
+                  <sup>0</sup>C
+                </span>
+              </h2>
+              <h2 className="humidity">
+                Humidity:
+                <br />
+                <span className="text-4xl font-bold">
+                  {" "}
+                  {Math.ceil(data.main.humidity)}
+                  g.kg<sup>-1</sup>
+                </span>
+              </h2>
+              <h2 className="pressure">
+                Atm. Pressure:
+                <br />{" "}
+                <span className="text-4xl font-bold">
+                  {data.main.pressure}atm
+                </span>
+              </h2>
+            </div>
+            <div className=" text-center mt-5 mb-10 text-4xl text-white font-bold">
+              <h3>{data.weather[0].main}</h3>
+            </div>
+          </div>
+        ) : (
+          <h1 style={{ margin: "1rem auto", width: "80%" }}>
+            Search a country or city...
+          </h1>
+        )}
+      </div>
     </div>
   );
 }
